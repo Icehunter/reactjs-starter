@@ -1,0 +1,18 @@
+{
+  "components": {
+    "navigation": {
+      "title": {
+        "start": "React",
+        "end": "JS"
+      }
+    }
+  },
+  "routes": {
+    "home": {
+      "message": "Welcome Home With \"react-i18next\""
+    },
+    "genericNotFound": {
+      "message": "404"
+    }
+  }
+}
