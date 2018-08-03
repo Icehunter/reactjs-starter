@@ -1,23 +1,15 @@
 // @flow
 
 import * as React from 'react';
-import { translate } from 'react-i18next';
-import { connect } from 'react-redux';
-import { Collapse, Nav, NavbarBrand, NavbarToggler } from 'reactstrap';
-import { compose } from 'redux';
+import { Collapse, Nav, NavbarBrand, NavbarToggler, NavItem, NavLink } from 'reactstrap';
+import { ComponentBuilder } from '../../extensions';
+import { ApplicationSettings, UserIdenity } from '../../store/selectors';
 import { StyledNavbar } from './styles';
-import type { ApplicationState } from '../../store/types';
-import type { Dispatch } from 'redux';
-
-import type { ApplicationDispatchActions, ApplicationSettingsState } from '../../store/types';
+import type { CommonProps } from '../../extensions';
 
 const ThemeChooser = window.AsyncComponent(() => import('./ThemeChooser'));
 
-type Props = {
-  applicationSettings: ApplicationSettingsState,
-  dispatch: Dispatch<ApplicationDispatchActions>,
-  t: (key: string, options: any) => void
-};
+type Props = {} & CommonProps;
 
 type State = {
   isOpen: boolean
@@ -29,9 +21,10 @@ class Navigation extends React.Component<Props, State> {
     this.setState({ isOpen: !this.state.isOpen });
   };
   render() {
-    const { applicationSettings, t } = this.props;
-    const { value } = applicationSettings;
-    const { theme } = value;
+    const { store, t } = this.props;
+    const theme = ApplicationSettings.getTheme(store);
+    const email = UserIdenity.getEmail(store);
+
     return (
       <StyledNavbar expand="md" fixed="top" className={theme.navbarExtensions}>
         <NavbarBrand href="/">
@@ -41,6 +34,18 @@ class Navigation extends React.Component<Props, State> {
         <NavbarToggler onClick={this.toggle} />
         <Collapse isOpen={this.state.isOpen} navbar>
           <Nav className="ml-auto" navbar>
+            {email && (
+              <NavItem>
+                <NavLink>{email}</NavLink>
+              </NavItem>
+            )}
+            <NavItem>
+              <NavLink href="/SignOut">
+                <i className="fas fa-fw fa-sign-out-alt" />
+              </NavLink>
+            </NavItem>
+          </Nav>
+          <Nav navbar>
             <ThemeChooser />
           </Nav>
         </Collapse>
@@ -49,13 +54,8 @@ class Navigation extends React.Component<Props, State> {
   }
 }
 
-const mapStateToProps = (state: ApplicationState) => {
-  const { store } = state;
-  const { applicationSettings } = store;
-  return { applicationSettings };
-};
-
-export default compose(
-  translate(),
-  connect(mapStateToProps)
-)(Navigation);
+export default new ComponentBuilder(Navigation)
+  .AddTranslation()
+  .AddReducer('applicationSettings')
+  .AddReducer('userIdentity')
+  .Compile();

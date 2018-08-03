@@ -1,22 +1,16 @@
 // @flow
 
 import * as React from 'react';
-import { connect } from 'react-redux';
 import { Input } from 'reactstrap';
 import { BootSwatchThemes } from '../../constants/theming';
+import { ComponentBuilder, ReactJSStorage } from '../../extensions';
 import { ApplicationSettingsThemeChanged } from '../../store/actions';
-import { ReactJSStorage } from '../../utilities';
-import type { ApplicationState } from '../../store/types';
-import type { Dispatch } from 'redux';
-
-import type { ApplicationDispatchActions, ApplicationSettingsState } from '../../store/types';
+import { ApplicationSettings } from '../../store/selectors';
+import type { CommonProps } from '../../extensions';
 
 const LayoutStorage = new ReactJSStorage('layout');
 
-type Props = {
-  applicationSettings: ApplicationSettingsState,
-  dispatch: Dispatch<ApplicationDispatchActions>
-};
+type Props = {} & CommonProps;
 
 class ThemeChooser extends React.Component<Props> {
   onChange = (e: any) => {
@@ -27,9 +21,8 @@ class ThemeChooser extends React.Component<Props> {
     this.props.dispatch(ApplicationSettingsThemeChanged(theme));
   };
   render() {
-    const { applicationSettings } = this.props;
-    const { value } = applicationSettings;
-    const { theme } = value;
+    const { store } = this.props;
+    const theme = ApplicationSettings.getTheme(store);
     return (
       <Input type="select" value={theme.name} onChange={this.onChange}>
         {Object.keys(BootSwatchThemes).map((key) => {
@@ -44,10 +37,7 @@ class ThemeChooser extends React.Component<Props> {
   }
 }
 
-const mapStateToProps = (state: ApplicationState) => {
-  const { store } = state;
-  const { applicationSettings } = store;
-  return { applicationSettings };
-};
-
-export default connect(mapStateToProps)(ThemeChooser);
+export default new ComponentBuilder(ThemeChooser)
+  .AddTranslation()
+  .AddReducer('applicationSettings')
+  .Compile();

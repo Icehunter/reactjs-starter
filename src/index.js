@@ -21,9 +21,8 @@ import registerServiceWorker from './registerServiceWorker';
 import { reducers } from './store';
 import Sagas from './store/sagas';
 
-// setup some window helpers
+// setup window helpers
 window.AsyncComponent = window.AsyncComponent || AsyncComponent;
-window.GetSuperComponent = () => window.AsyncComponent(() => import('./components/SuperComponent'));
 
 const Layout = window.AsyncComponent(() => import('./containers/Layout'));
 const Home = window.AsyncComponent(() => import('./routes/Home'));

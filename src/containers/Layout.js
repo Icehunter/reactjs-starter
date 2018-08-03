@@ -1,37 +1,29 @@
 // @flow
 
 import * as React from 'react';
-import { connect } from 'react-redux';
 import { BootSwatchThemes } from '../constants/theming';
+import { ComponentBuilder, ReactJSStorage } from '../extensions';
 import { ApplicationSettingsThemeChanged, UserIdentityRequested } from '../store/actions';
-import { ReactJSStorage } from '../utilities';
-import type { ApplicationState } from '../store/types';
-import type { Dispatch } from 'redux';
+import { ApplicationSettings } from '../store/selectors';
 
-import type {
-  ApplicationDispatchActions,
-  ApplicationSettingsState,
-  ApplicationTheme,
-  UserIdentityState
-} from '../store/types';
+import type { ApplicationTheme } from '../store/types';
+import type { CommonProps } from '../extensions';
 
 const LayoutStorage = new ReactJSStorage('layout');
 
 const Colorizer = window.AsyncComponent(() => import('../components/Colorizer'));
 const Navigation = window.AsyncComponent(() => import('../components/Navigation'));
 
-type Props = {
-  children?: any,
-  applicationSettings: ApplicationSettingsState,
-  userIdentity: UserIdentityState,
-  dispatch: Dispatch<ApplicationDispatchActions>
-};
+type Props = {} & CommonProps;
 
 type State = {
   theme: ApplicationTheme
 };
 
 class Layout extends React.Component<Props, State> {
+  componentDidMount() {
+    this.props.dispatch(UserIdentityRequested());
+  }
   componentWillMount() {
     let theme = LayoutStorage.getItemJSON('theme');
     if (!theme) {
@@ -42,16 +34,12 @@ class Layout extends React.Component<Props, State> {
 
     this.props.dispatch(ApplicationSettingsThemeChanged(theme));
   }
-  componentDidMount() {
-    this.props.dispatch(UserIdentityRequested());
-  }
   render() {
-    const { applicationSettings } = this.props;
-    const { value } = applicationSettings;
+    const { store } = this.props;
+    const theme = ApplicationSettings.getTheme(store);
 
     let themeLink = <div />;
-    if (value) {
-      const { theme } = value;
+    if (theme) {
       themeLink = <link rel="stylesheet" href={theme.cssURL} media="screen" />;
     }
 
@@ -68,10 +56,8 @@ class Layout extends React.Component<Props, State> {
   }
 }
 
-const mapStateToProps = (state: ApplicationState) => {
-  const { store } = state;
-  const { applicationSettings, userIdentity } = store;
-  return { applicationSettings, userIdentity };
-};
-
-export default connect(mapStateToProps)(Layout);
+export default new ComponentBuilder(Layout)
+  .AddTranslation()
+  .AddReducer('applicationSettings')
+  .AddReducer('userIdentity')
+  .Compile();

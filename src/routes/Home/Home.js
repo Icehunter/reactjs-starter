@@ -1,11 +1,10 @@
 // @flow
 
 import * as React from 'react';
-import { translate } from 'react-i18next';
+import { ComponentBuilder } from '../../extensions';
+import type { CommonProps } from '../../extensions';
 
-type Props = {
-  t: (key: string, options: any) => void
-};
+type Props = {} & CommonProps;
 
 class Home extends React.Component<Props> {
   render() {
@@ -22,4 +21,4 @@ class Home extends React.Component<Props> {
   }
 }
 
-export default translate()(Home);
+export default new ComponentBuilder(Home).AddTranslation().Compile();

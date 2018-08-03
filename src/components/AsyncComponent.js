@@ -7,18 +7,21 @@ interface ImportedComponent {
 }
 
 type Props = {};
-type State = { component: any };
+
+type State = { component?: any };
 
 export const AsyncComponent = (importComponent: () => ImportedComponent) => {
   return class InnerAsyncComponent extends React.Component<Props, State> {
-    state = { component: null };
+    state = {
+      component: null
+    };
     async componentDidMount() {
       const { default: component } = await importComponent();
 
       this.setState({ component });
     }
     render() {
-      let content = null;
+      let content = <div />;
       const { component: AsynchronousComponent } = this.state;
       if (AsynchronousComponent) {
         content = <AsynchronousComponent {...this.props} />;

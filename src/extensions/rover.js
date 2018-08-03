@@ -11,8 +11,7 @@ export type QueryAPIOptions = {
   timeout?: number
 };
 
-export const QueryAPI = (options: QueryAPIOptions) => {
-  const { url, configuration = {}, timeout = 30000 } = options;
+export const QueryAPI = ({ url, configuration = {}, timeout = 30000 }: QueryAPIOptions) => {
   const config = { method: 'GET', headers: {}, credentials: 'include', ...configuration };
   config.headers['Content-Type'] = config.headers['Content-Type'] || 'application/json; charset=utf-8';
   let timeException = false;

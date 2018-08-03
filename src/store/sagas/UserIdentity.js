@@ -2,13 +2,15 @@
 
 import type { Saga } from 'redux-saga';
 import { call, put, takeLatest } from 'redux-saga/effects';
-
 import { UserIdentityResponse } from '../actions';
 import { USER_IDENTITY_REQUESTED } from '../constants';
+
 import type { UserIdentityModel } from '../types';
 
 const fetchUserIdentityAPI = () => {
-  const user: UserIdentityModel = {};
+  const user: UserIdentityModel = {
+    email: 'syndicated.life@gmail.com'
+  };
   return Promise.resolve(user)
     .then((user) => user)
     .catch((err) => err);
