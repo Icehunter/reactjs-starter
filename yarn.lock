@@ -3185,9 +3185,9 @@ flatten@^1.0.2:
   version "1.0.2"
   resolved "https://registry.yarnpkg.com/flatten/-/flatten-1.0.2.tgz#dae46a9d78fbe25292258cc1e780a41d95c03782"
 
-flow-bin@^0.77.0:
-  version "0.77.0"
-  resolved "https://registry.yarnpkg.com/flow-bin/-/flow-bin-0.77.0.tgz#4e5c93929f289a0c28e08fb361a9734944a11297"
+flow-bin@^0.78.0:
+  version "0.78.0"
+  resolved "https://registry.yarnpkg.com/flow-bin/-/flow-bin-0.78.0.tgz#df9fe7f9c9a2dfaff39083949fe2d831b41627b7"
 
 flow-typed@^2.5.1:
   version "2.5.1"
@@ -3539,7 +3539,7 @@ got@^7.1.0:
     url-parse-lax "^1.0.0"
     url-to-options "^1.0.1"
 
-graceful-fs@^4.1.11, graceful-fs@^4.1.2, graceful-fs@^4.1.6, graceful-fs@^4.1.9:
+graceful-fs@^4.1.11, graceful-fs@^4.1.2, graceful-fs@^4.1.5, graceful-fs@^4.1.6, graceful-fs@^4.1.9:
   version "4.1.11"
   resolved "https://registry.yarnpkg.com/graceful-fs/-/graceful-fs-4.1.11.tgz#0e8bdfe4d1ddb8854d64e04ea7c00e2a026e5658"
 
@@ -4686,7 +4686,7 @@ js-tokens@^3.0.0, js-tokens@^3.0.2:
   version "4.0.0"
   resolved "https://registry.yarnpkg.com/js-tokens/-/js-tokens-4.0.0.tgz#19203fb59991df98e3a287050d4647cdeaf32499"
 
-js-yaml@^3.4.2, js-yaml@^3.4.3, js-yaml@^3.7.0, js-yaml@^3.9.0, js-yaml@^3.9.1:
+js-yaml@^3.4.2, js-yaml@^3.4.3, js-yaml@^3.6.1, js-yaml@^3.7.0, js-yaml@^3.9.0, js-yaml@^3.9.1:
   version "3.12.0"
   resolved "https://registry.yarnpkg.com/js-yaml/-/js-yaml-3.12.0.tgz#eaed656ec8344f10f527c6bfa1b6e2244de167d1"
   dependencies:
@@ -4977,6 +4977,15 @@ load-json-file@^4.0.0:
     graceful-fs "^4.1.2"
     parse-json "^4.0.0"
     pify "^3.0.0"
+    strip-bom "^3.0.0"
+
+load-yaml-file@^0.1.0:
+  version "0.1.0"
+  resolved "https://registry.yarnpkg.com/load-yaml-file/-/load-yaml-file-0.1.0.tgz#f680066e691b3eeb45017672e4a3956af5b83b89"
+  dependencies:
+    graceful-fs "^4.1.5"
+    js-yaml "^3.6.1"
+    pify "^2.3.0"
     strip-bom "^3.0.0"
 
 loader-fs-cache@^1.0.0:
@@ -5665,9 +5674,9 @@ npm-bundled@^1.0.1:
   version "1.0.3"
   resolved "https://registry.yarnpkg.com/npm-bundled/-/npm-bundled-1.0.3.tgz#7e71703d973af3370a9591bafe3a63aca0be2308"
 
-npm-check@*:
-  version "5.7.1"
-  resolved "https://registry.yarnpkg.com/npm-check/-/npm-check-5.7.1.tgz#1f5da05b02d8fd7b92b3d4303bc8209abe795177"
+npm-check@^5.8.0:
+  version "5.8.0"
+  resolved "https://registry.yarnpkg.com/npm-check/-/npm-check-5.8.0.tgz#d579733af2059a0d475e011155ba0b3c18ed3f83"
   dependencies:
     babel-runtime "^6.6.1"
     callsite-record "^3.0.0"
@@ -5688,6 +5697,7 @@ npm-check@*:
     package-json "^4.0.1"
     path-exists "^2.1.0"
     pkg-dir "^1.0.0"
+    preferred-pm "^1.0.1"
     semver "^5.0.1"
     semver-diff "^2.0.0"
     text-table "^0.2.0"
@@ -6456,6 +6466,13 @@ postcss@^6.0.0, postcss@^6.0.1, postcss@^6.0.13:
     source-map "^0.6.1"
     supports-color "^5.4.0"
 
+preferred-pm@^1.0.1:
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/preferred-pm/-/preferred-pm-1.0.1.tgz#539df37ce944b1b765ae944a8ba34a7e68694e8d"
+  dependencies:
+    path-exists "^3.0.0"
+    which-pm "^1.0.1"
+
 prelude-ls@~1.1.2:
   version "1.1.2"
   resolved "https://registry.yarnpkg.com/prelude-ls/-/prelude-ls-1.1.2.tgz#21932a549f5e52ffd9a827f570e04be62a97da54"
@@ -6468,9 +6485,9 @@ preserve@^0.2.0:
   version "0.2.0"
   resolved "https://registry.yarnpkg.com/preserve/-/preserve-0.2.0.tgz#815ed1f6ebc65926f865b310c0713bcb3315ce4b"
 
-prettier@^1.14.0:
-  version "1.14.0"
-  resolved "https://registry.yarnpkg.com/prettier/-/prettier-1.14.0.tgz#847c235522035fd988100f1f43cf20a7d24f9372"
+prettier@^1.14.1:
+  version "1.14.1"
+  resolved "https://registry.yarnpkg.com/prettier/-/prettier-1.14.1.tgz#4ead68e66b5ec9e771de311570c90da822f5a17a"
 
 pretty-bytes@^4.0.2:
   version "4.0.2"
@@ -7865,9 +7882,9 @@ style-loader@0.19.0:
     loader-utils "^1.0.2"
     schema-utils "^0.3.0"
 
-styled-components@^3.4.0:
-  version "3.4.0"
-  resolved "https://registry.yarnpkg.com/styled-components/-/styled-components-3.4.0.tgz#d256fb4667e6c115a7ed61ab78f120283b43dd00"
+styled-components@^3.4.2:
+  version "3.4.2"
+  resolved "https://registry.yarnpkg.com/styled-components/-/styled-components-3.4.2.tgz#8f518419932327e47fe9144824e3184b3e2da95d"
   dependencies:
     buffer "^5.0.3"
     css-to-react-native "^2.0.3"
@@ -8583,6 +8600,13 @@ which-module@^1.0.0:
 which-module@^2.0.0:
   version "2.0.0"
   resolved "https://registry.yarnpkg.com/which-module/-/which-module-2.0.0.tgz#d9ef07dce77b9902b8a3a8fa4b31c3e3f7e6e87a"
+
+which-pm@^1.0.1:
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/which-pm/-/which-pm-1.0.1.tgz#c9522eb3501377413e9a8c552bbe2350c36eccc0"
+  dependencies:
+    load-yaml-file "^0.1.0"
+    path-exists "^3.0.0"
 
 which@1, which@^1.2.10, which@^1.2.12, which@^1.2.14, which@^1.2.8, which@^1.2.9, which@^1.3.0:
   version "1.3.1"

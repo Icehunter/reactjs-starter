@@ -1,0 +1,27 @@
+.valign-top {
+  vertical-align: top !important;
+}
+.valign-bottom {
+  vertical-align: bottom !important;
+}
+.valign-middle {
+  vertical-align: middle !important;
+}
+.table-td-valign-middle td,
+.table-th-valign-middle th,
+.table-valign-middle td,
+.table-valign-middle th {
+  vertical-align: middle !important;
+}
+.table-td-valign-top td,
+.table-th-valign-top th,
+.table-valign-top td,
+.table-valign-top th {
+  vertical-align: top !important;
+}
+.table-td-valign-bottom td,
+.table-th-valign-bottom th,
+.table-valign-bottom td,
+.table-valign-bottom th {
+  vertical-align: bottom !important;
+}

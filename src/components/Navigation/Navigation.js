@@ -1,7 +1,8 @@
 // @flow
 
 import * as React from 'react';
-import { Collapse, Nav, NavbarBrand, NavbarToggler, NavItem, NavLink } from 'reactstrap';
+import { Link, NavLink } from 'react-router-dom';
+import { Collapse, Nav, NavbarToggler, NavItem } from 'reactstrap';
 import { ComponentBuilder } from '../../extensions';
 import { ApplicationSettings, UserIdenity } from '../../store/selectors';
 import { StyledNavbar } from './styles';
@@ -27,20 +28,24 @@ class Navigation extends React.Component<Props, State> {
 
     return (
       <StyledNavbar expand="md" fixed="top" className={theme.navbarExtensions}>
-        <NavbarBrand href="/">
-          <strong>{t('components.navigation.title.start')}</strong>
-          {t('components.navigation.title.end')}
-        </NavbarBrand>
+        <Link className="navbar-brand" to={'/'}>
+          <span>
+            <strong>{t('components.navigation.title.start')}</strong>
+            {t('components.navigation.title.end')}
+          </span>
+        </Link>
         <NavbarToggler onClick={this.toggle} />
         <Collapse isOpen={this.state.isOpen} navbar>
           <Nav className="ml-auto" navbar>
             {email && (
               <NavItem>
-                <NavLink>{email}</NavLink>
+                <a href={`mailto:${email}`} className="nav-link">
+                  {email}
+                </a>
               </NavItem>
             )}
             <NavItem>
-              <NavLink href="/SignOut">
+              <NavLink to="/SignOut" className="nav-link">
                 <i className="fas fa-fw fa-sign-out-alt" />
               </NavLink>
             </NavItem>

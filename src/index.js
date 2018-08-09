@@ -1,6 +1,6 @@
 // @flow
 
-import { ConnectedRouter, connectRouter, routerMiddleware, routerReducer } from 'connected-react-router';
+import { ConnectedRouter, connectRouter, routerMiddleware } from 'connected-react-router';
 import { createBrowserHistory } from 'history';
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
@@ -30,23 +30,18 @@ const history = createBrowserHistory({ basename: baseUrl });
 const rootReducers = combineReducers({
   ...{
     store: reducers
-  },
-  ...{
-    routing: routerReducer
   }
 });
 
 // create saga middleware
 const sagaMiddleware = createSagaMiddleware();
 
+const composeEnhancer = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 // store with middleware
 const store = createStore(
   connectRouter(history)(rootReducers),
   {},
-  compose(
-    applyMiddleware(routerMiddleware(history), sagaMiddleware, logger),
-    window.devToolsExtension ? window.devToolsExtension() : (async) => async
-  )
+  composeEnhancer(applyMiddleware(routerMiddleware(history), sagaMiddleware, logger))
 );
 
 // run sagas
@@ -57,7 +52,7 @@ if (root != null) {
   ReactDOM.render(
     <I18nextProvider i18n={i18next} defaultNS="translations">
       <Provider store={store}>
-        <ConnectedRouter history={history} children={routes} />
+        <ConnectedRouter history={history}>{routes}</ConnectedRouter>
       </Provider>
     </I18nextProvider>,
     root

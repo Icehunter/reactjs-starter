@@ -9,6 +9,10 @@
   },
   "routes": {
     "home": {
+      "header": {
+        "title": "Dashboard",
+        "message": "Home"
+      },
       "message": "Welcome Home With \"react-i18next\""
     },
     "genericNotFound": {

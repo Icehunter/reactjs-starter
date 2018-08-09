@@ -14,6 +14,11 @@ const LayoutStorage = new ReactJSStorage('layout');
 const Colorizer = window.AsyncComponent(() => import('../components/Colorizer'));
 const Navigation = window.AsyncComponent(() => import('../components/Navigation'));
 
+const PageContainer = window.AsyncComponent(() => import('../components/UI/PageContainer'));
+const PageContent = window.AsyncComponent(() => import('../components/UI/PageContent'));
+const PageFooter = window.AsyncComponent(() => import('../components/UI/PageFooter'));
+const PageSideBar = window.AsyncComponent(() => import('../components/UI/PageSideBar'));
+
 type Props = {} & CommonProps;
 
 type State = {
@@ -48,9 +53,11 @@ class Layout extends React.Component<Props, State> {
         {themeLink}
         <Colorizer />
         <Navigation />
-        <section id="main-application">
-          <section id="main">{this.props.children}</section>
-        </section>
+        <PageContainer>
+          <PageSideBar />
+          <PageContent>{this.props.children}</PageContent>
+          <PageFooter>{'© 2018 Ryan Wilson All Rights Reserved'}</PageFooter>
+        </PageContainer>
       </div>
     );
   }

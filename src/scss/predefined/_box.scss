@@ -1,0 +1,16 @@
+.vertical-box {
+  display: table;
+  table-layout: fixed;
+  border-spacing: 0;
+  height: 100%;
+  width: 100%;
+}
+.vertical-box-column {
+  display: table-cell;
+  vertical-align: top;
+  height: 100%;
+}
+.vertical-box-row {
+  display: table-row;
+  height: 100%;
+}
