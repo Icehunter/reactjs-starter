@@ -2,6 +2,7 @@
 
 import * as React from 'react';
 import { ComponentBuilder } from '../../extensions';
+
 import type { CommonProps } from '../../extensions';
 
 type Props = {} & CommonProps;

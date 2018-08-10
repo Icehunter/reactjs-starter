@@ -7,11 +7,15 @@ export type ApplicationSettingsDispatchActions = { type: typeof APPLICATION_SETT
 
 // STATE TREE
 export type ApplicationTheme = {
+  index: number,
   name: string,
-  cssURL: string,
+  shortName?: string,
   navbarExtensions: string
 };
 
-export type ApplicationSettingsModel = { theme: ApplicationTheme };
+export type ApplicationSettingsModel = {
+  breadCrumbs: string[],
+  theme: ApplicationTheme
+};
 
 export type ApplicationSettingsState = { error: string, requested: boolean, value: ApplicationSettingsModel };

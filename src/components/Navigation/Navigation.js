@@ -6,6 +6,7 @@ import { Collapse, Nav, NavbarToggler, NavItem } from 'reactstrap';
 import { ComponentBuilder } from '../../extensions';
 import { ApplicationSettings, UserIdenity } from '../../store/selectors';
 import { StyledNavbar } from './styles';
+
 import type { CommonProps } from '../../extensions';
 
 const ThemeChooser = window.AsyncComponent(() => import('./ThemeChooser'));

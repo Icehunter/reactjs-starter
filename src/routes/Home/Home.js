@@ -5,6 +5,7 @@ import { ComponentBuilder } from '../../extensions';
 
 import type { CommonProps } from '../../extensions';
 
+const BreadCrumbs = window.AsyncComponent(() => import('../../components/UI/BreadCrumbs'));
 const PageHeader = window.AsyncComponent(() => import('../../components/UI/PageHeader'));
 
 type Props = {} & CommonProps;
@@ -14,6 +15,7 @@ class Home extends React.Component<Props> {
     const { t } = this.props;
     return (
       <div>
+        <BreadCrumbs crumbs={[{ text: 'Dashboard', link: '/' }, { text: 'Home' }]} />
         <PageHeader title={t('routes.home.header.title')} message={t('routes.home.header.message')} />
         <div className="row">
           <div className="col">

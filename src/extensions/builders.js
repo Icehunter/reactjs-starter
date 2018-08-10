@@ -2,7 +2,9 @@
 
 import { translate } from 'react-i18next';
 import { connect } from 'react-redux';
+import { withRouter } from 'react-router';
 import { compose } from 'redux';
+
 import type { ApplicationState } from '../store/types';
 
 export const ComponentBuilder = (component: any) => {
@@ -38,6 +40,7 @@ export const ComponentBuilder = (component: any) => {
           return { store: reduced };
         })
       );
+      args.push(withRouter);
       return compose.apply(null, args)(component);
     };
   }

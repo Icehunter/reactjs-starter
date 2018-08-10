@@ -6,6 +6,7 @@ import { BootSwatchThemes } from '../../constants/theming';
 import { ComponentBuilder, ReactJSStorage } from '../../extensions';
 import { ApplicationSettingsThemeChanged } from '../../store/actions';
 import { ApplicationSettings } from '../../store/selectors';
+
 import type { CommonProps } from '../../extensions';
 
 const LayoutStorage = new ReactJSStorage('layout');
@@ -14,7 +15,10 @@ type Props = {} & CommonProps;
 
 class ThemeChooser extends React.Component<Props> {
   onChange = (e: any) => {
-    const theme = { name: e.target.value, ...BootSwatchThemes[e.target.value] };
+    const theme = {
+      index: e.target.value,
+      ...BootSwatchThemes[e.target.value]
+    };
 
     LayoutStorage.setItemJSON('theme', theme);
 
@@ -22,13 +26,14 @@ class ThemeChooser extends React.Component<Props> {
   };
   render() {
     const { store } = this.props;
-    const theme = ApplicationSettings.getTheme(store);
+    const currentTheme = ApplicationSettings.getTheme(store);
+
     return (
-      <Input type="select" value={theme.name} onChange={this.onChange}>
-        {Object.keys(BootSwatchThemes).map((key) => {
+      <Input type="select" value={currentTheme.index} onChange={this.onChange}>
+        {BootSwatchThemes.map((themeOption, index) => {
           return (
-            <option key={`theme-${key}`} value={key}>
-              {key}
+            <option key={`theme-${index}`} value={index}>
+              {themeOption.name}
             </option>
           );
         })}

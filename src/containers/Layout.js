@@ -1,7 +1,7 @@
 // @flow
 
 import * as React from 'react';
-import { BootSwatchThemes } from '../constants/theming';
+import { BootSwatchThemes, BootSwatchVersion } from '../constants/theming';
 import { ComponentBuilder, ReactJSStorage } from '../extensions';
 import { ApplicationSettingsThemeChanged, UserIdentityRequested } from '../store/actions';
 import { ApplicationSettings } from '../store/selectors';
@@ -32,7 +32,7 @@ class Layout extends React.Component<Props, State> {
   componentWillMount() {
     let theme = LayoutStorage.getItemJSON('theme');
     if (!theme) {
-      theme = { name: 'Default', ...BootSwatchThemes.Default };
+      theme = { index: 0, name: 'Default', ...BootSwatchThemes[0] };
       LayoutStorage.setItemJSON('theme', theme);
     }
     this.setState({ theme });
@@ -43,14 +43,21 @@ class Layout extends React.Component<Props, State> {
     const { store } = this.props;
     const theme = ApplicationSettings.getTheme(store);
 
-    let themeLink = <div />;
-    if (theme) {
-      themeLink = <link rel="stylesheet" href={theme.cssURL} media="screen" />;
+    const themeLinks = [];
+    if (theme && theme.shortName) {
+      themeLinks.push(
+        <link
+          rel="stylesheet"
+          href={`https://maxcdn.bootstrapcdn.com/bootswatch/${BootSwatchVersion}/${theme.shortName}/bootstrap.min.css`}
+          media="screen"
+          key={`theme-${theme.shortName}`}
+        />
+      );
     }
 
     return (
       <div>
-        {themeLink}
+        {themeLinks}
         <Colorizer />
         <Navigation />
         <PageContainer>
