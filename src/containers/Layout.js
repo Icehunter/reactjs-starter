@@ -26,10 +26,9 @@ type State = {
 };
 
 class Layout extends React.Component<Props, State> {
-  componentDidMount() {
-    this.props.dispatch(UserIdentityRequested());
-  }
-  componentWillMount() {
+  constructor(props) {
+    super(props);
+
     let theme = LayoutStorage.getItemJSON('theme');
     if (!theme) {
       theme = { index: 0, name: 'Default', ...BootSwatchThemes[0] };
@@ -38,6 +37,9 @@ class Layout extends React.Component<Props, State> {
     this.setState({ theme });
 
     this.props.dispatch(ApplicationSettingsThemeChanged(theme));
+  }
+  componentDidMount() {
+    this.props.dispatch(UserIdentityRequested());
   }
   render() {
     const { store } = this.props;
@@ -70,7 +72,7 @@ class Layout extends React.Component<Props, State> {
   }
 }
 
-export default new ComponentBuilder(Layout)
+export default ComponentBuilder(Layout)
   .AddTranslation()
   .AddReducer('applicationSettings')
   .AddReducer('userIdentity')

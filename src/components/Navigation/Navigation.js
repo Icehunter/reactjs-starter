@@ -60,7 +60,7 @@ class Navigation extends React.Component<Props, State> {
   }
 }
 
-export default new ComponentBuilder(Navigation)
+export default ComponentBuilder(Navigation)
   .AddTranslation()
   .AddReducer('applicationSettings')
   .AddReducer('userIdentity')

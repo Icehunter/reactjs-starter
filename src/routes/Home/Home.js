@@ -27,4 +27,6 @@ class Home extends React.Component<Props> {
   }
 }
 
-export default new ComponentBuilder(Home).AddTranslation().Compile();
+export default ComponentBuilder(Home)
+  .AddTranslation()
+  .Compile();

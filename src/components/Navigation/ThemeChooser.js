@@ -42,7 +42,6 @@ class ThemeChooser extends React.Component<Props> {
   }
 }
 
-export default new ComponentBuilder(ThemeChooser)
-  .AddTranslation()
+export default ComponentBuilder(ThemeChooser)
   .AddReducer('applicationSettings')
   .Compile();

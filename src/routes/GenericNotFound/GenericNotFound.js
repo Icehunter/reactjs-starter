@@ -22,4 +22,6 @@ class GenericNotFound extends React.Component<Props> {
   }
 }
 
-export default new ComponentBuilder(GenericNotFound).AddTranslation().Compile();
+export default ComponentBuilder(GenericNotFound)
+  .AddTranslation()
+  .Compile();
