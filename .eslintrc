@@ -5,6 +5,8 @@
     "prettier/prettier": "error"
   },
   "env": {
-    "jest": true
+    "jest": true,
+    "browser": true,
+    "node": true
   }
 }

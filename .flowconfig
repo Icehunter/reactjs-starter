@@ -2,19 +2,16 @@
 .*/build/.*
 .*/coverage/.*
 .*/flow-typed/.*
-.*/i18n/.*.json
 .*/node_modules/.*
 
 [include]
 
 [libs]
 flow-typed
-flow-typed-custom
 
 [lints]
 
 [options]
-all=true
 emoji=true
 
 module.system=node

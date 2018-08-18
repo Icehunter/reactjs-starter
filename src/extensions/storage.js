@@ -14,7 +14,12 @@ export class ReactJSStorage {
   getItemJSON = (key: string) => {
     const item = this.getItem(key);
     if (item) {
-      return JSON.parse(item);
+      try {
+        return JSON.parse(item);
+      } catch (err) {
+        console.error(err);
+        return;
+      }
     }
   };
   setItemJSON = (key: string, data: {}) => {

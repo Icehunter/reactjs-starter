@@ -34,7 +34,10 @@ class Layout extends React.Component<Props, State> {
       theme = { index: 0, name: 'Default', ...BootSwatchThemes[0] };
       LayoutStorage.setItemJSON('theme', theme);
     }
-    this.setState({ theme });
+
+    this.state = {
+      theme
+    };
 
     this.props.dispatch(ApplicationSettingsThemeChanged(theme));
   }

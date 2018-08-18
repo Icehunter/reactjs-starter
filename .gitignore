@@ -3,8 +3,8 @@
 .vscode/
 
 # dependencies
-/node_modules
 /flow-typed
+/node_modules
 **/*.css
 
 # testing
@@ -12,6 +12,7 @@
 
 # production
 /build
+/dist
 
 # misc
 .DS_Store
