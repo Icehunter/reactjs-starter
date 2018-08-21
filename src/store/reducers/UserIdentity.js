@@ -2,12 +2,11 @@
 
 import { combineReducers } from 'redux';
 import { handleActions } from 'redux-actions';
-
-import { UserIdentityRequested, UserIdentityResponse } from '../actions';
+import { USER_IDENTITY_REQUESTED, USER_IDENTITY_RESPONSE } from '../constants';
 
 const error = handleActions(
   {
-    [UserIdentityResponse.toString()]: {
+    [USER_IDENTITY_RESPONSE]: {
       next() {
         return null;
       },
@@ -23,10 +22,10 @@ const error = handleActions(
 
 const requested = handleActions(
   {
-    [UserIdentityRequested.toString()]() {
+    [USER_IDENTITY_REQUESTED]() {
       return true;
     },
-    [UserIdentityResponse.toString()]() {
+    [USER_IDENTITY_RESPONSE]() {
       return false;
     }
   },
@@ -35,7 +34,7 @@ const requested = handleActions(
 
 const value = handleActions(
   {
-    [UserIdentityResponse.toString()]: {
+    [USER_IDENTITY_RESPONSE]: {
       next(state, action) {
         const { payload } = action;
         return payload;

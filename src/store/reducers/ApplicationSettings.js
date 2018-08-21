@@ -2,8 +2,7 @@
 
 import { combineReducers } from 'redux';
 import { handleActions } from 'redux-actions';
-
-import { ApplicationSettingsThemeChanged } from '../actions';
+import { APPLICATION_SETTINGS_THEME_CHANGED } from '../constants';
 
 const error = handleActions({}, null);
 
@@ -11,7 +10,7 @@ const requested = handleActions({}, false);
 
 const value = handleActions(
   {
-    [ApplicationSettingsThemeChanged.toString()]: {
+    [APPLICATION_SETTINGS_THEME_CHANGED]: {
       next(state, action) {
         const { payload: theme } = action;
         return {
