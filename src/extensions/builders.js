@@ -15,6 +15,9 @@ export const ComponentBuilder = (component: any) => {
     component: any;
     translationSupport: boolean;
     reducers = [];
+    dispatchers: {
+      [key: string]: Function
+    } = {};
     AddTranslation = () => {
       this.translationSupport = true;
       return this;
@@ -25,22 +28,35 @@ export const ComponentBuilder = (component: any) => {
       }
       return this;
     };
+    AddDispatchers = (dispatchers: {}) => {
+      this.dispatchers = dispatchers;
+      return this;
+    };
     Compile = () => {
       const args = [];
+
       if (this.translationSupport) {
         args.push(translate());
       }
+
+      const mapStateToProps = (state: ApplicationState) => {
+        const { store } = state;
+        const reduced = {};
+        this.reducers.forEach((storeName) => {
+          reduced[storeName] = store[storeName];
+        });
+        return { store: reduced };
+      };
+
       args.push(
-        connect((state: ApplicationState, ownProps: ?{}) => {
-          const { store } = state;
-          const reduced = {};
-          this.reducers.forEach((storeName) => {
-            reduced[storeName] = store[storeName];
-          });
-          return { store: reduced };
-        })
+        connect(
+          mapStateToProps,
+          this.dispatchers
+        )
       );
+
       args.push(withRouter);
+
       return compose.apply(null, args)(component);
     };
   }

@@ -11,7 +11,9 @@ import type { CommonProps } from '../../extensions';
 
 const LayoutStorage = new ReactJSStorage('layout');
 
-type Props = {} & CommonProps;
+type Props = {
+  setTheme: Function
+} & CommonProps;
 
 class ThemeChooser extends React.Component<Props> {
   onChange = (e: any) => {
@@ -22,7 +24,7 @@ class ThemeChooser extends React.Component<Props> {
 
     LayoutStorage.setItemJSON('theme', theme);
 
-    this.props.dispatch(ApplicationSettingsThemeChanged(theme));
+    this.props.setTheme(theme);
   };
   render() {
     const { store } = this.props;
@@ -44,4 +46,7 @@ class ThemeChooser extends React.Component<Props> {
 
 export default ComponentBuilder(ThemeChooser)
   .AddReducer('applicationSettings')
+  .AddDispatchers({
+    setTheme: ApplicationSettingsThemeChanged
+  })
   .Compile();

@@ -19,7 +19,10 @@ const PageContent = window.AsyncComponent(() => import('../components/UI/PageCon
 const PageFooter = window.AsyncComponent(() => import('../components/UI/PageFooter'));
 const PageSideBar = window.AsyncComponent(() => import('../components/UI/PageSideBar'));
 
-type Props = {} & CommonProps;
+type Props = {
+  fetchUserIdentity: Function,
+  setTheme: Function
+} & CommonProps;
 
 type State = {
   theme: ApplicationTheme
@@ -39,10 +42,10 @@ class Layout extends React.Component<Props, State> {
       theme
     };
 
-    this.props.dispatch(ApplicationSettingsThemeChanged(theme));
+    this.props.setTheme(theme);
   }
   componentDidMount() {
-    this.props.dispatch(UserIdentityRequested());
+    this.props.fetchUserIdentity();
   }
   render() {
     const { store } = this.props;
@@ -79,4 +82,8 @@ export default ComponentBuilder(Layout)
   .AddTranslation()
   .AddReducer('applicationSettings')
   .AddReducer('userIdentity')
+  .AddDispatchers({
+    fetchUserIdentity: UserIdentityRequested,
+    setTheme: ApplicationSettingsThemeChanged
+  })
   .Compile();
