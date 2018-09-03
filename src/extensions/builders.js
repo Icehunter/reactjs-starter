@@ -1,11 +1,27 @@
 // @flow
 
+import hoistStatics from 'hoist-non-react-statics';
+import * as React from 'react';
 import { translate } from 'react-i18next';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
 import { compose } from 'redux';
+import config from '../config';
 
 import type { ApplicationState } from '../store/types';
+
+type EnvironmentProps = {};
+
+const WithEnvironment = () => {
+  return (WrappedComponent: any) => {
+    class Environment extends React.Component<EnvironmentProps> {
+      render() {
+        return <WrappedComponent environment={config} {...this.props} />;
+      }
+    }
+    return hoistStatics(Environment, WrappedComponent);
+  };
+};
 
 export const ComponentBuilder = (component: any) => {
   class Builder {
@@ -13,11 +29,14 @@ export const ComponentBuilder = (component: any) => {
       this.component = component;
     }
     component: any;
+    environmentSupport: boolean;
     translationSupport: boolean;
     reducers = [];
-    dispatchers: {
-      [key: string]: Function
-    } = {};
+    dispatchers = null;
+    AddenvironmentSupport = () => {
+      this.environmentSupport = true;
+      return this;
+    };
     AddTranslation = () => {
       this.translationSupport = true;
       return this;
@@ -28,12 +47,16 @@ export const ComponentBuilder = (component: any) => {
       }
       return this;
     };
-    AddDispatchers = (dispatchers: {}) => {
+    AddDispatchers = (dispatchers: {} = {}) => {
       this.dispatchers = dispatchers;
       return this;
     };
     Compile = () => {
       const args = [];
+
+      if (this.environmentSupport) {
+        args.push(WithEnvironment());
+      }
 
       if (this.translationSupport) {
         args.push(translate());
@@ -48,12 +71,16 @@ export const ComponentBuilder = (component: any) => {
         return { store: reduced };
       };
 
-      args.push(
-        connect(
-          mapStateToProps,
-          this.dispatchers
-        )
-      );
+      if (this.dispatchers) {
+        args.push(
+          connect(
+            mapStateToProps,
+            this.dispatchers
+          )
+        );
+      } else {
+        args.push(connect(mapStateToProps));
+      }
 
       args.push(withRouter);
 
