@@ -9,11 +9,8 @@ const gradient = keyframes`
 `;
 
 export const ShiftingGradient = styled.div`
-  position: fixed;
-  top: 0px;
-  width: 100%;
-  height: 6px;
-  z-index: 100;
+  display: grid;
+  grid-area: colorizer;
   background: linear-gradient(270deg, #2196f3, #f44336, #ff9800, #cddc39, #00bcd4);
   background-size: 1000%;
   animation: ${gradient} 10s ease infinite;

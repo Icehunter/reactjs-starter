@@ -1,7 +1,8 @@
 // @flow
 
 import * as React from 'react';
-import { ListItem, ListItemLink, OrderedList } from './styles';
+import { FAIcon } from '../Styled';
+import { BreadCrumbContainer, BreadCrumbList, ListItem, ListItemLink } from './styles';
 
 export type BreadCrumb = {
   text: string,
@@ -22,18 +23,26 @@ export default class BreadCrumbs extends React.Component<Props> {
         const { text, link } = crumb;
 
         const key = `${text}-${index}`;
-        const isActive = index === 0;
-        const active = isActive ? 'active' : '';
-        const item = isActive ? text : <ListItemLink to={`${link}`}>{text}</ListItemLink>;
+        const active = index === 0;
+        const item = active ? text : <ListItemLink to={`${link}`}>{text}</ListItemLink>;
 
+        let icon = <div />;
+        if (index > 0) {
+          icon = <FAIcon icon="chevron-right" p={1} />;
+        }
         return (
-          <ListItem className={`breadcrumb-item ${active}`} key={key}>
+          <ListItem active key={key}>
             {item}
+            {icon}
           </ListItem>
         );
       })
       .reverse();
 
-    return <OrderedList className="breadcrumb pull-right">{items}</OrderedList>;
+    return (
+      <BreadCrumbContainer>
+        <BreadCrumbList>{items}</BreadCrumbList>
+      </BreadCrumbContainer>
+    );
   }
 }

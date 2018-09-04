@@ -1,21 +1,31 @@
 // @flow
 
 import * as React from 'react';
-import { Header } from './styles';
+import { ComponentBuilder } from '../../../extensions';
+import { Branding, HeaderContainer, Menu } from './styles';
 
-type Props = {
-  title: string,
-  message?: string
-};
+import type { CommonProps } from '../../../extensions';
 
-export default class PageHeader extends React.Component<Props> {
+type Props = {} & CommonProps;
+
+class PageHeader extends React.Component<Props> {
   render() {
-    const { title, message } = this.props;
+    const { t } = this.props;
 
     return (
-      <Header>
-        {title} <small>{message}</small>
-      </Header>
+      <HeaderContainer>
+        <Branding>
+          <div>
+            <strong>{t('components.navigation.title.start')}</strong>
+            {t('components.navigation.title.end')}
+          </div>
+        </Branding>
+        <Menu />
+      </HeaderContainer>
     );
   }
 }
+
+export default ComponentBuilder(PageHeader)
+  .AddTranslation()
+  .Compile();

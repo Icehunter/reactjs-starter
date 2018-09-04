@@ -21,13 +21,15 @@ export const AsyncComponent = (importComponent: () => ImportedComponent) => {
       this.setState({ component });
     }
     render() {
-      let content = <div />;
       const { component: AsynchronousComponent } = this.state;
       if (AsynchronousComponent) {
-        content = <AsynchronousComponent {...this.props} />;
+        return <AsynchronousComponent {...this.props} />;
       }
-
-      return content;
+      return (
+        <div>
+          <i className="fa fas fa-spinner fa-spin" />
+        </div>
+      );
     }
   };
 };

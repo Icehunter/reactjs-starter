@@ -3,17 +3,23 @@
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 
+export const BreadCrumbContainer = styled.div`
+  grid-area: bread-crumbs;
+`;
+
 export const ListItemLink = styled(Link)`
   color: #333;
+  &:hover {
+    text-decoration: none;
+  }
 `;
 
 export const ListItem = styled.li`
-  line-height: 32px !important;
+  display: inline;
 `;
 
-export const OrderedList = styled.ol`
-  padding: 0 !important;
-  margin: 0 !important;
-  background: none !important;
-  border: none !important;
+export const BreadCrumbList = styled.ul`
+  padding: 0;
+  margin: 0;
+  list-style: none;
 `;
